@@ -37,11 +37,11 @@ class ListOfUsers extends React.Component {
           <p>Search:</p>
           <input type='text' onChange={
             (e) => {
-              this.setState({searchText: e.target.value});
+              this.props.filterTheUsers(e.target.value);
+              //this.setState({searchText: e.target.value});
               //console.log(this.state.searchText);
             }
           } />
-          <button type='button'>Search</button>
         </div>
         <br/>
         <button onClick={

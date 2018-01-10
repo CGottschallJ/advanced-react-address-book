@@ -8,8 +8,9 @@ function App (props) {
   return (
     <div>
       <ListOfUsers
-      selectUser={props.selectUser} 
-      users={props.users} />
+      selectUser={props.selectUser}
+      users={props.users}
+      filterTheUsers={props.filterTheUsers} />
       <UserDetail user={props.user} />
     </div>
   );
