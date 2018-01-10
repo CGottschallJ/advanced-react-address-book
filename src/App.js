@@ -4,12 +4,13 @@ import "./App.css";
 import UserDetail from "./components/UserDetail.js";
 import ListOfUsers from "./components/ListOfUsers.js";
 
-
-function App(props) {
+function App (props) {
   return (
     <div>
-      <ListOfUsers users={props.users} />
-      <UserDetail firstUser={props.users[0]}/>
+      <ListOfUsers
+      selectUser={props.selectUser} 
+      users={props.users} />
+      <UserDetail user={props.user} />
     </div>
   );
 }

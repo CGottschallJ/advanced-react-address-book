@@ -10,11 +10,22 @@ class ListOfUsers extends React.Component {
   };
 
   render(){
+    console.log('list', this.props);
     const users = this.props.users;
+    console.log(users);
     let userDiv = "";
     if (this.state.visible) {
-      userDiv = users.map(function(user, i) {
-        return <div key={i}>{user.first_name}</div>;
+      userDiv = users.map((user, i) => {
+        return (
+          <div key={i}>
+            {user.first_name}
+            <a href='#' onClick={
+              () => {
+                this.props.selectUser(user);
+              }
+            }>View</a>
+          </div>
+        );
       });
     } else {
       userDiv= "";
