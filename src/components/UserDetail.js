@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 function UserDetail(props) {
   console.log(props);
@@ -13,4 +14,11 @@ function UserDetail(props) {
   )
 }
 
-export default UserDetail;
+function mapStateToProps(state) {
+  return {
+    user: state.currentUser
+  }
+}
+
+const UserDetailContainer = connect(mapStateToProps)(UserDetail);
+export default UserDetailContainer;

@@ -1,21 +1,29 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {selectUser} from '../actions';
 
 class ListOfUsers extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      visible: true,
-      searchText: ""
+      visible: true
     };
   };
 
   render(){
+    let buttonText = "Hide";
     console.log('list', this.props);
     const users = this.props.users;
     console.log(users);
     let userDiv = "";
     if (this.state.visible) {
-      userDiv = users.map((user, i) => {
+      //console.log("before", this.props.users);
+      const filterUsers = this.props.users.filter((user) => {
+        return user.first_name.indexOf(this.props.searchText) > -1;
+      });
+      //console.log("filtered",filterUsers);
+      //console.log("users", users);
+      userDiv = filterUsers.map((user, i) => {
         return (
           <div key={i}>
             {user.first_name}
@@ -28,28 +36,19 @@ class ListOfUsers extends React.Component {
         );
       });
     } else {
+      buttonText="Show";
       userDiv= "";
     }
 
     return (
       <div className="ListofUsers">
-        <div>
-          <p>Search:</p>
-          <input type='text' onChange={
-            (e) => {
-              this.props.filterTheUsers(e.target.value);
-              //this.setState({searchText: e.target.value});
-              //console.log(this.state.searchText);
-            }
-          } />
-        </div>
         <br/>
         <button onClick={
           (e) => {
             this.setState({visible: !this.state.visible});
           }
         }
-        type="button">Hide</button>
+        type="button">{buttonText}</button>
         {userDiv}
       </div>
     );
@@ -57,4 +56,20 @@ class ListOfUsers extends React.Component {
 
 }
 
-export default ListOfUsers;
+function mapStateToProps(state) {
+  return {
+    users: state.users,
+    searchText: state.searchText
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    selectUser: function(user) {
+      dispatch(selectUser(user));
+    }
+  }
+}
+
+const listOfUsersContainer = connect(mapStateToProps, mapDispatchToProps)(ListOfUsers);
+export default listOfUsersContainer;
